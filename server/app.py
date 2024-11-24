@@ -5,7 +5,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 from datetime import datetime, timedelta, timezone
-import traceback
+import base64
 load_dotenv()
 
 
@@ -53,7 +53,7 @@ def test_token():
         if token:
             return jsonify({"message": "Token successfully retrieved", "token": token}), 200
         else:
-            return jsonify({"message": "Failed to retrieve token"}), 501
+            return jsonify({"message": "Failed to retrieve token"}), 500
     except Exception as e:
         return jsonify({"message": str(e)}), 500
     
@@ -75,18 +75,40 @@ def get_artist(id):
             return jsonify({"error": "Token missing or expired"}), 401
     
     except Exception as e:
-        # Log the full traceback for debugging
-        traceback.print_exc()
-        return jsonify({'Error': str(e), 'Traceback': traceback.format_exc()}), 500
+
+        return jsonify({'Error': str(e)}), 500
     
-@app.route('/fart')
-def test():
-    print('test')
-    return
+
+@app.route('/callback')
+def callback():
+    code = request.args.get('code')
+    client_credentials = f"{CLIENT_ID}:{CLIENT_SECRET}"
+    encoded_cc = base64.b64encode(client_credentials.encode()).decode()
+    data = {
+            "grant_type" : "authorization_code",
+            "code" : code,
+            "redirect_uri" : "http://127.0.0.1:5000/callback"
+              }
+    headers={
+            "Authorization": f"Basic {encoded_cc}",
+            "content-type" : "application/x-www-form-urlencoded"
+        }
+    response = requests.post(
+                            TOKEN_URL,
+                             data=data,
+                             headers=headers
+                             )
+    if response.status_code == 200:
+        token = response.json()
+        return (token)
+    else:
+        return jsonify({"message": "Failed to retrieve token"}), 500
 
 
+    
 
-
+    
+    
 
 
 

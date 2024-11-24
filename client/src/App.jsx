@@ -2,26 +2,25 @@ import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { fetchChart } from './fetch'
+import { fetchArtistById } from './fetch'
 
 function App() {
   const [count, setCount] = useState(0)
   const [chart, setChart] = useState([])
 
   useEffect(() => {
-    const loadChart = async () => {
+    const loadArtist = async () => {
       try {
-        const data = await fetchChart();
+        const data = await fetchArtistById('0TnOYISbd1XYRBk9myaseg');
         setChart(data);
       } catch (err) {
         console.log(err.message);
       }
     };
 
-    loadChart();
+    loadArtist();
   }, []);
 
-  console.log(chart?.albums.data[4].artist.name)
   return (
     <>
       <div>
@@ -31,7 +30,7 @@ function App() {
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
-        <h1>{chart?.albums.data[4].artist.type}</h1>
+        <h1>{chart?.genres}</h1>
       </div>
       <h1>Vite + React</h1>
 
