@@ -5,6 +5,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 from datetime import datetime, timedelta, timezone
+import traceback
 load_dotenv()
 
 
@@ -22,7 +23,9 @@ TOKEN_URL = 'https://accounts.spotify.com/api/token'
 
 
 def get_token():
-    if session['token'] and session['expiration_time'] > datetime.now(timezone.utc):
+    token = session.get('token')
+    exp_time = session.get('expiration_time')
+    if token and exp_time > datetime.now(timezone.utc):
         return
     else:
         response = requests.post(
@@ -43,7 +46,10 @@ def get_token():
 def test_token():
     try:
         get_token() 
-        token = session.get('token')  
+        token = session.get('token')
+        print(session['token'])
+        print(session['expiration_time'])
+        print(datetime.now(timezone.utc))  
         if token:
             return jsonify({"message": "Token successfully retrieved", "token": token}), 200
         else:
@@ -51,24 +57,32 @@ def test_token():
     except Exception as e:
         return jsonify({"message": str(e)}), 500
     
-@app.route('/artist/<id>')
+@app.route('/artists/<id>')
 def get_artist(id):
     try:    
         get_token()
-        token = session.get('token')
+        token = session['token']
         if token:
             headers = {"Authorization": f"Bearer {token}"}
             response = (requests.get(f'{base}artists/{id}', headers=headers))
             if response.status_code == 200:
                 artist_data = response.json()
-                return artist_data                        
+                print((artist_data))
+                return (artist_data)                        
             else:
                 return jsonify({"error": "Failed to fetch artist data", "status": response.text}), response.status_code
         else:
             return jsonify({"error": "Token missing or expired"}), 401
     
     except Exception as e:
-        return jsonify({'Error': str(e)}), 500
+        # Log the full traceback for debugging
+        traceback.print_exc()
+        return jsonify({'Error': str(e), 'Traceback': traceback.format_exc()}), 500
+    
+@app.route('/fart')
+def test():
+    print('test')
+    return
 
 
 
