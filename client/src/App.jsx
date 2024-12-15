@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import { fetchArtistById } from './fetch'
+import { fetchArtistById, fetchMyProfile } from './fetch'
+import Clock from './components/clock'
 
 function App() {
-  const [count, setCount] = useState(0)
   const [chart, setChart] = useState([])
+  const [profile, setProfile] = useState([])
 
   useEffect(() => {
     const loadArtist = async () => {
@@ -20,31 +19,24 @@ function App() {
 
     loadArtist();
   }, []);
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        const data = await fetchMyProfile();
+        setProfile(data);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+
+    loadProfile();
+  }, []);
 
   return (
     <>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-        <h1>{chart?.genres}</h1>
+        <Clock />
       </div>
-      <h1>Vite + React</h1>
-
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }

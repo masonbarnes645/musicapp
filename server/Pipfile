@@ -9,6 +9,7 @@ flask-restful = "*"
 flask-cors = "*"
 python-dotenv = "*"
 requests = "*"
+flask-session = "*"
 
 [dev-packages]
 

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, make_response, request, session
+from flask import Flask, jsonify, make_response, request, session, redirect, url_for
 from flask_restful import Resource, Api
 import requests
 from flask_cors import CORS
@@ -6,19 +6,23 @@ from dotenv import load_dotenv
 import os
 from datetime import datetime, timedelta, timezone
 import base64
+
 load_dotenv()
 
 
 
 app = Flask(__name__)
 api = Api(app)
-CORS(app)
+CORS(app, supports_credentials=True, origins=["http://127.0.0.1:5173"])
 app.secret_key = os.getenv('SESSION_SECRET')
 
-base = 'https://api.spotify.com/v1/'
+
+BASE_URL = 'https://api.spotify.com/v1/'
 CLIENT_ID = os.getenv('CLIENT_ID')
 CLIENT_SECRET = os.getenv('CLIENT_SECRET')
 TOKEN_URL = 'https://accounts.spotify.com/api/token'
+
+
 
 
 
@@ -38,20 +42,16 @@ def get_token():
             token_info = response.json()
             session['token'] = token_info["access_token"]
             session['expiration_time'] = (datetime.now(timezone.utc) + timedelta(hours=1))
-            print(session['expiration_time'])
         else:
             raise Exception(f"Failed to get access token: {response.status_code}, {response.json()}")
     
 @app.route('/test')
 def test_token():
     try:
-        get_token() 
+        get_token()
         token = session.get('token')
-        print(session['token'])
-        print(session['expiration_time'])
-        print(datetime.now(timezone.utc))  
         if token:
-            return jsonify({"message": "Token successfully retrieved", "token": token}), 200
+            return jsonify({"message": "Token successfully retrieved", "token": session['access_token']}), 200
         else:
             return jsonify({"message": "Failed to retrieve token"}), 500
     except Exception as e:
@@ -64,10 +64,9 @@ def get_artist(id):
         token = session['token']
         if token:
             headers = {"Authorization": f"Bearer {token}"}
-            response = (requests.get(f'{base}artists/{id}', headers=headers))
+            response = (requests.get(f'{BASE_URL}artists/{id}', headers=headers))
             if response.status_code == 200:
                 artist_data = response.json()
-                print((artist_data))
                 return (artist_data)                        
             else:
                 return jsonify({"error": "Failed to fetch artist data", "status": response.text}), response.status_code
@@ -81,12 +80,12 @@ def get_artist(id):
 
 @app.route('/callback')
 def callback():
-    code = request.args.get('code')
+    auth_code = request.args.get('code')
     client_credentials = f"{CLIENT_ID}:{CLIENT_SECRET}"
     encoded_cc = base64.b64encode(client_credentials.encode()).decode()
     data = {
             "grant_type" : "authorization_code",
-            "code" : code,
+            "code" : auth_code,
             "redirect_uri" : "http://127.0.0.1:5000/callback"
               }
     headers={
@@ -100,19 +99,39 @@ def callback():
                              )
     if response.status_code == 200:
         token = response.json()
-        return (token)
-    else:
-        return jsonify({"message": "Failed to retrieve token"}), 500
+        session['access_token'] = token['access_token']
+        session['refresh_token'] = token['refresh_token']
+        return redirect('http://127.0.0.1:5173')
+    return jsonify({"message": "Failed to retrieve token"}), 500
+
+@app.route('/profile')
+def get_profile():
+    try:
+        access_token = session['access_token']
+        print(f' after: {access_token}')
+        if not access_token:
+            return {"error": "Access token is missing or invalid."}, 401
+        headers = {"Authorization": f"Bearer {access_token}"}
+        response = requests.get(f"{BASE_URL}me", headers=headers)
+        if response.status_code == 200:
+            profile_data = response.json()
+            return profile_data
+        else:
+            return {
+                "error": f"Failed to fetch profile: {response.status_code}",
+                "details": response.json()
+            }, response.status_code
+    except KeyError as e:
+        return {"error": f"Missing key in session: {str(e)}"}, 400
+    except requests.RequestException as e:
+        return {"error": f"HTTP request failed: {str(e)}"}, 500
+    except Exception as e:
+        return {"error": f"An unexpected error occurred: {str(e)}"}, 500
+
 
 
     
-
-    
-    
-
-
-
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
