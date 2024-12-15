@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { fetchArtistById, fetchMyProfile } from './fetch'
-import Clock from './components/clock'
+import Clock from './components/Clock'
+import Flashcard from './components/Flashcard'
 
 function App() {
   const [chart, setChart] = useState([])
@@ -36,6 +37,7 @@ function App() {
     <>
       <div>
         <Clock />
+        <Flashcard/>
       </div>
     </>
   )
