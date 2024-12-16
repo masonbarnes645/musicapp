@@ -1,27 +1,16 @@
 import { useEffect, useState } from "react"
 
 
-function FlashcardForm() {
-    const [flashcards, setFlashcards] = useState([])
+
+function FlashcardForm({ addFlashcard }) {
     const [question, setQuestion] = useState('')
     const [answer, setAnswer] = useState('')
     
     
-    useEffect(() => {
-            const storedFlashcards = localStorage.getItem('flashcards')
-            if (storedFlashcards){
-                setFlashcards(JSON.parse(storedFlashcards))
-            }
-    }, [])
-    
-    useEffect(() => {
-        localStorage.setItem("flashcards", JSON.stringify(flashcards));
-      }, [flashcards]);
-    
     const handleSubmitForm = (e) => {
         e.preventDefault()
         const newFlashcard = {question, answer}
-        setFlashcards((prev) => [...prev, newFlashcard])
+        addFlashcard(newFlashcard)
         setQuestion("");
         setAnswer("");    
     }

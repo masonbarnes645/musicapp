@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import './App.css'
 import { fetchArtistById, fetchMyProfile } from './fetch'
 import Clock from './components/Clock'
-import Flashcard from './components/Flashcard'
-import FlashcardForm from './components/FlashcardForm'
+import FlashContainer from './components/Flashcard/FlashContainer'
 
 function App() {
   const [chart, setChart] = useState([])
   const [profile, setProfile] = useState([])
+  
 
   useEffect(() => {
     const loadArtist = async () => {
@@ -34,12 +34,13 @@ function App() {
     loadProfile();
   }, []);
 
+
+
   return (
     <>
       <div>
         <Clock />
-        <Flashcard/>
-        <FlashcardForm />
+        <FlashContainer/>
       </div>
     </>
   )
