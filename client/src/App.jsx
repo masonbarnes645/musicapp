@@ -3,6 +3,7 @@ import './App.css'
 import { fetchArtistById, fetchMyProfile } from './fetch'
 import Clock from './components/Clock'
 import Flashcard from './components/Flashcard'
+import FlashcardForm from './components/FlashcardForm'
 
 function App() {
   const [chart, setChart] = useState([])
@@ -38,6 +39,7 @@ function App() {
       <div>
         <Clock />
         <Flashcard/>
+        <FlashcardForm />
       </div>
     </>
   )
