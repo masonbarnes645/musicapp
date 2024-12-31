@@ -3,11 +3,12 @@ import './App.css'
 import { fetchArtistById, fetchMyProfile } from './fetch'
 import Clock from './components/Clock'
 import FlashContainer from './components/Flashcard/FlashContainer'
+import { spotifyAuthUrl } from './auth'
 
 function App() {
   const [chart, setChart] = useState([])
   const [profile, setProfile] = useState([])
-  
+
 
   useEffect(() => {
     const loadArtist = async () => {
@@ -39,8 +40,11 @@ function App() {
   return (
     <>
       <div>
+        <a href={spotifyAuthUrl}>
+          <button>Login with Spotify</button>
+        </a>
         <Clock />
-        <FlashContainer/>
+        <FlashContainer />
       </div>
     </>
   )
