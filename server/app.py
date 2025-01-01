@@ -135,6 +135,24 @@ def get_profile():
 #             return {"error": "Access token is missing or invalid."}, 401
 #         headers = {"Authorization": f"Bearer {access_token}"}
 
+
+@app.route('user-playlists/<id>')
+def get_user_playlists():
+    try:
+        get_token()
+        access_token = session['token']
+        if access_token:
+            headers = {"Authorization": f"Bearer {token}"}
+            response = (requests.get(f'{BASE_URL}users/{id}/playlists', headers=headers))
+            if response.status_code == 200:
+                user_playlists = response.json()
+                return (user_playlists)                        
+            else:
+                return jsonify({"error": "Failed to fetch artist data", "status": response.text}), response.status_code
+    except Exception as e:
+        return make_response({"Error" : str(e)}, 500)
+
+        
     
 
 
