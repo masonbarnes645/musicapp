@@ -40,7 +40,7 @@ function App() {
   return (
     <>
       <div>
-        {profile ? <h1>{profile.display_name}</h1> : <a href={spotifyAuthUrl}>
+        {profile.display_name ? <h1>{profile.display_name}</h1> : <a href={spotifyAuthUrl}>
           <button>Login with Spotify</button>
         </a>}
         <Clock />

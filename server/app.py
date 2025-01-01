@@ -99,7 +99,7 @@ def callback():
                              )
     if response.status_code == 200:
         token = response.json()
-        session['access_token'] = token['access_token']
+        session['user_access_token'] = token['access_token']
         session['refresh_token'] = token['refresh_token']
         return redirect('http://127.0.0.1:5173')
     return jsonify({"message": "Failed to retrieve token"}), 500
@@ -107,7 +107,7 @@ def callback():
 @app.route('/profile')
 def get_profile():
     try:
-        access_token = session['access_token']
+        access_token = session['user_access_token']
         if not access_token:
             return {"error": "Access token is missing or invalid."}, 401
         headers = {"Authorization": f"Bearer {access_token}"}
@@ -127,10 +127,13 @@ def get_profile():
     except Exception as e:
         return {"error": f"An unexpected error occurred: {str(e)}"}, 500
     
-@app.route('/start-playback')
-def start_playback():
-    try:
-        access_token = session['access_token']
+# @app.route('/start-playback')
+# def start_playback():
+#     try:
+#         access_token = session['access_token']
+#         if not access_token:
+#             return {"error": "Access token is missing or invalid."}, 401
+#         headers = {"Authorization": f"Bearer {access_token}"}
 
     
 
