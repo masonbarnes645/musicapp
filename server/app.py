@@ -108,7 +108,6 @@ def callback():
 def get_profile():
     try:
         access_token = session['access_token']
-        print(f' after: {access_token}')
         if not access_token:
             return {"error": "Access token is missing or invalid."}, 401
         headers = {"Authorization": f"Bearer {access_token}"}
@@ -127,6 +126,14 @@ def get_profile():
         return {"error": f"HTTP request failed: {str(e)}"}, 500
     except Exception as e:
         return {"error": f"An unexpected error occurred: {str(e)}"}, 500
+    
+@app.route('/start-playback')
+def start_playback():
+    try:
+        access_token = session['access_token']
+
+    
+
 
 
 
