@@ -23,6 +23,9 @@ export const fetchMyProfile = async () =>{
 
 export const fetchUserPlaylists = async (id) => {
   try {
-    const response = await axios.get(`${url}/user-playlists/${id});
+    const response = await axios.get(`${url}/user-playlists/${id}`);
+    return response.data
+  } catch (error){
+    throw new Error(error.message)
   }
 }
