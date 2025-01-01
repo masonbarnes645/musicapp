@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import './App.css'
-import { fetchArtistById, fetchMyProfile } from './fetch'
+import { fetchArtistById, fetchMyProfile, fetchUserPlaylists } from './fetch'
 import Clock from './components/Clock'
 import FlashContainer from './components/Flashcard/FlashContainer'
 import { spotifyAuthUrl } from './auth'
@@ -40,9 +40,10 @@ function App() {
   return (
     <>
       <div>
-        {profile.display_name ? <h1>{profile.display_name}</h1> : <a href={spotifyAuthUrl}>
+        {profile.display_name ? <><h1>{profile.display_name}</h1> <button onClick={(id) => fetchUserPlaylists(profile.id)}>fetch</button></> : <a href={spotifyAuthUrl}>
           <button>Login with Spotify</button>
         </a>}
+
         <Clock />
         <FlashContainer />
       </div>

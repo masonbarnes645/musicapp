@@ -136,8 +136,8 @@ def get_profile():
 #         headers = {"Authorization": f"Bearer {access_token}"}
 
 
-@app.route('user-playlists/<id>')
-def get_user_playlists():
+@app.route('/user-playlists/<id>')
+def get_user_playlists(id):
     try:
         get_token()
         access_token = session['token']
