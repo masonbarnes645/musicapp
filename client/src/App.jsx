@@ -51,3 +51,5 @@ function App() {
 }
 
 export default App
+
+// SLEEK || ROUND EDGES || RESPONSIVE || CUSTOMIZE WIDGETS
