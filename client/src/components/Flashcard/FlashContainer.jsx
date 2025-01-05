@@ -34,3 +34,5 @@ function FlashContainer() {
 }
 
 export default FlashContainer
+
+// minimize / choose list / new flashcard / new list 

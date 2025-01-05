@@ -10,3 +10,5 @@ function Checklist(){
 }
 
 export default Checklist
+
+// add task / move task / remove task 

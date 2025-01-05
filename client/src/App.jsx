@@ -53,3 +53,4 @@ function App() {
 export default App
 
 // SLEEK || ROUND EDGES || RESPONSIVE || CUSTOMIZE WIDGETS
+// 16 x 16 grid layout
