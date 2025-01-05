@@ -7,3 +7,5 @@ function Layout() {
         <></>
     )
 }
+
+// map 16 (?) droppable boxes
