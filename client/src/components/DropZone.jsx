@@ -1,4 +1,4 @@
-import { useDraggable } from "@dnd-kit/core"
+import { useDroppable } from "@dnd-kit/core"
 
 function DropZone(){
     return(
