@@ -4,6 +4,7 @@ import { fetchArtistById, fetchMyProfile, fetchUserPlaylists } from './fetch'
 import Clock from './components/Clock'
 import FlashContainer from './components/Flashcard/FlashContainer'
 import { spotifyAuthUrl } from './auth'
+import Layout from './layout'
 
 function App() {
   const [chart, setChart] = useState([])
@@ -46,6 +47,7 @@ function App() {
         <Clock />
         <FlashContainer />
       </div>
+      <Layout />
     </>
   )
 }
