@@ -4,7 +4,7 @@ import { fetchArtistById, fetchMyProfile, fetchUserPlaylists } from './fetch'
 import Clock from './components/Clock'
 import FlashContainer from './components/Flashcard/FlashContainer'
 import { spotifyAuthUrl } from './auth'
-import Layout from './layout'
+import Layout from './components/layout'
 
 function App() {
   const [chart, setChart] = useState([])
