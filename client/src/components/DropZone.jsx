@@ -1,17 +1,17 @@
 import { useDroppable } from "@dnd-kit/core"
-import { Grid2 } from "@mui/material";
+import Grid from '@mui/material/Grid2';
 
-function DropZone({ id }) {
-    const { setNodeRef, isOver } = useDroppable({ id });
+function DropZone({ key }) {
+    const { setNodeRef, isOver } = useDroppable({ key });
 
     return (
-        <Grid2 size={{ xl: 3}} >
-            <Item>
-                <div ref={setNodeRef} style={{ width: '25%', height: '300px' }}>
+        <Grid size={{ xl: 3}} >
+            <div style={{width:'100px'}}>
+                <div ref={setNodeRef}>
                 </div >
-            </Item>
+            </div>
 
-        </Grid2 >
+        </Grid >
 
     )
 }
