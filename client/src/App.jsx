@@ -40,13 +40,13 @@ function App() {
 
   return (
     <>
-      <div>
+      {/* <div>
         {profile.display_name ? <><h1>{profile.display_name}</h1> <button onClick={(id) => fetchUserPlaylists(profile.id)}>fetch</button></> : <a href={spotifyAuthUrl}>
           <button>Login with Spotify Account</button>
         </a>}
         <Clock />
         <FlashContainer />
-      </div>
+      </div> */}
       <Layout />
     </>
   )

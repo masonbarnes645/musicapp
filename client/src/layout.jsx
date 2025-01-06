@@ -1,12 +1,13 @@
+import { Box } from "@mui/material";
 import DropZone from "./components/DropZone";
 
 
 function Layout() {
 
     return(
-        <>
-        {Array(16).fill(null).map((_, index) => <DropZone key={index} />)}
-        </>
+        <Box sx={{display:'flex', width:'100vw', height:'100vh'}}>
+            {Array(16).fill(null).map((_, index) => <DropZone key={index} />)}
+        </Box>
     )
 }
 
