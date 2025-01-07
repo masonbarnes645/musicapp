@@ -1,10 +1,17 @@
 import { useDraggable } from "@dnd-kit/core"
+import { Box } from "@mui/material"
 
-function WidgetBox({ guts }){
+function WidgetBox({ guts, id }) {
+    const {setNodeRef} = useDraggable({ id })
 
-    return(
-        <Box>
-            {guts}
-        </Box>
+
+    return (
+        <button ref={setNodeRef}>
+            <Box>
+                {guts}
+            </Box>
+        </button>
     )
 }
+
+export default WidgetBox

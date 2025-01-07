@@ -6,6 +6,7 @@ import FlashContainer from './components/Flashcard/FlashContainer'
 import { spotifyAuthUrl } from './auth'
 import Layout from './components/Layout'
 import { Box } from '@mui/material'
+import WidgetBox from './components/WidgetBox'
 
 function App() {
   const [chart, setChart] = useState([])
@@ -41,6 +42,7 @@ function App() {
 
   return (
     <Box sx={{width:'100vw'}}>
+      <WidgetBox id={1} />
       <Layout />
     </Box>
   )
