@@ -6,7 +6,7 @@ function Layout() {
 
     return(
         <Grid2 container spacing={.5} sx={{width:'80%'}} >
-            {Array(16).fill(null).map((_, index) => <DropZone key={index} id={index}/>)}
+            {Array(18).fill(null).map((_, index) => <DropZone key={index} id={index}/>)}
         </Grid2>
 )
 }
