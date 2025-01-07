@@ -8,11 +8,9 @@ function DropZone({ id }) {
     return (
 
         <Grid size={{ xl: 3}} >
-            <div style={{width:'100px'}}>
-                <div ref={setNodeRef}>
-                </div >
-            </div>
+            <div ref={setNodeRef} style={{width:'100%', height:'100px', backgroundColor:'red'}}>
 
+            </div>
         </Grid >
 
     )
