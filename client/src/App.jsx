@@ -3,7 +3,7 @@ import './App.css'
 import { fetchArtistById, fetchMyProfile, fetchUserPlaylists } from './fetch'
 import { DndContext } from '@dnd-kit/core'
 import Layout from './components/Layout'
-import { Box } from '@mui/material'
+import { Box, experimentalStyled } from '@mui/material'
 import WidgetBox from './components/WidgetBox'
 import { closestCenter } from '@dnd-kit/core'
 
@@ -38,9 +38,13 @@ function App() {
   }, []);
 
 
+  const handleDragEnd = (e) => {
+    const {active, over} = e;
+
+  }
 
   return (
-    <DndContext collisionDetection={closestCenter} >
+    <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
       <Box sx={{ width: '100vw' }}>
         <WidgetBox id={1} />
         <Layout />
