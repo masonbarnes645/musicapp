@@ -5,7 +5,7 @@ import {CSS} from '@dnd-kit/utilities';
 function WidgetBox({ guts, id }) {
     const {setNodeRef, transform, listeners, attributes} = useDraggable({ id })
     const style = {
-        transform: CSS.Translate.toString(transform),
+        transform: CSS.Translate.toString(transform)
       };
 
     return (

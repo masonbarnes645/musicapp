@@ -5,6 +5,7 @@ import { DndContext } from '@dnd-kit/core'
 import Layout from './components/Layout'
 import { Box } from '@mui/material'
 import WidgetBox from './components/WidgetBox'
+import { closestCenter } from '@dnd-kit/core'
 
 function App() {
   const [chart, setChart] = useState([])
@@ -39,7 +40,7 @@ function App() {
 
 
   return (
-    <DndContext>
+    <DndContext collisionDetection={closestCenter} >
       <Box sx={{ width: '100vw' }}>
         <WidgetBox id={1} />
         <Layout />
