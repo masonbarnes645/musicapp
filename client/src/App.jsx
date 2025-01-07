@@ -1,9 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import './App.css'
 import { fetchArtistById, fetchMyProfile, fetchUserPlaylists } from './fetch'
-import Clock from './components/Clock'
-import FlashContainer from './components/Flashcard/FlashContainer'
-import { spotifyAuthUrl } from './auth'
+import { DndContext } from '@dnd-kit/core'
 import Layout from './components/Layout'
 import { Box } from '@mui/material'
 import WidgetBox from './components/WidgetBox'
@@ -41,10 +39,12 @@ function App() {
 
 
   return (
-    <Box sx={{width:'100vw'}}>
-      <WidgetBox id={1} />
-      <Layout />
-    </Box>
+    <DndContext>
+      <Box sx={{ width: '100vw' }}>
+        <WidgetBox id={1} />
+        <Layout />
+      </Box>
+    </DndContext>
   )
 }
 
