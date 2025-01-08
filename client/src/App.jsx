@@ -45,7 +45,7 @@ function App() {
 
   return (
     <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <Box sx={{ width: '100vw' }}>
+      <Box sx={{ width: '90vw' }}>
         <WidgetBox id={1} />
         <Layout />
       </Box>
