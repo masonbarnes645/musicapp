@@ -40,6 +40,7 @@ function App() {
 
   const handleDragEnd = (e) => {
     const {active, over} = e;
+    console.log("test")
 
   }
 
