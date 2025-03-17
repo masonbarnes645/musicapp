@@ -6,6 +6,7 @@ import Layout from './components/Layout'
 import { Box, experimentalStyled } from '@mui/material'
 import WidgetBox from './components/WidgetBox'
 import { closestCenter } from '@dnd-kit/core'
+import Clock from './components/Clock'
 
 function App() {
   const [chart, setChart] = useState([])
@@ -47,7 +48,7 @@ function App() {
   return (
     <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
       <Box sx={{ width: '90vw' }}>
-        <WidgetBox id={1} />
+        <WidgetBox id={1} guts={Clock}/>
         <Layout />
       </Box>
     </DndContext>
