@@ -7,11 +7,13 @@ import { Box, experimentalStyled } from '@mui/material'
 import WidgetBox from './components/WidgetBox'
 import { closestCenter } from '@dnd-kit/core'
 import Clock from './components/Clock'
+import DropZone from "./components/DropZone";
+
 
 function App() {
   const [chart, setChart] = useState([])
   const [profile, setProfile] = useState([])
-
+  const dropGrid = Array(18).fill(null).map((_, index) => <DropZone key={index} id={index}/>)
 
   useEffect(() => {
     const loadArtist = async () => {
@@ -50,7 +52,7 @@ function App() {
     <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
       <Box sx={{ width: '90vw' }}>
         <WidgetBox id={1} guts={<Clock/>}/>
-        <Layout />
+        <Layout dropGrid = {dropGrid} />
       </Box>
     </DndContext>
   )
