@@ -14,7 +14,6 @@ function App() {
   const [chart, setChart] = useState([])
   const [profile, setProfile] = useState([])
   const [dropGrid, setDropGrid] = useState(Array(18).fill(null).map((_, index) => <DropZone key={index} id={index}/>))
-  // const dropGrid = Array(18).fill(null).map((_, index) => <DropZone key={index} id={index}/>)
 
 
   useEffect(() => {
@@ -44,12 +43,15 @@ function App() {
 
 
   const handleDragEnd = (e) => {
-    const {active, over} = e;
-    setDropGrid(prev => ({
-      ...prev,
-      [over.id]: "test"
-  }));
-  }
+    const { active, over } = e;
+    if (!over) return; 
+  
+    setDropGrid(prev =>
+      prev.map((item, index) =>
+        index === over.id ? <WidgetBox id={over.id} guts={<Clock />} /> : item
+      )
+    );
+  };
 
   return (
     <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
