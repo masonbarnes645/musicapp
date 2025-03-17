@@ -47,15 +47,15 @@ function App() {
     if (!over) return; 
   
     setDropGrid(prev =>
-      prev.map((item, index) =>
-        index === over.id ? <WidgetBox id={over.id} guts={<Clock />} /> : item
+      prev.map((zone, index) =>
+        index === over.id ? <WidgetBox id={over.id} guts={<Clock />} /> : zone
       )
     );
   };
 
   return (
     <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <Box sx={{ width: '90vw' }}>
+      <Box sx={{ width: '80vw', overflow:'hidden' }}>
         <WidgetBox id={1} guts={<Clock/>}/>
         <Layout dropGrid = {dropGrid} />
       </Box>
