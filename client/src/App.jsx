@@ -13,7 +13,9 @@ import DropZone from "./components/DropZone";
 function App() {
   const [chart, setChart] = useState([])
   const [profile, setProfile] = useState([])
-  const dropGrid = Array(18).fill(null).map((_, index) => <DropZone key={index} id={index}/>)
+  const [dropGrid, setDropGrid] = useState(Array(18).fill(null).map((_, index) => <DropZone key={index} id={index}/>))
+  // const dropGrid = Array(18).fill(null).map((_, index) => <DropZone key={index} id={index}/>)
+
 
   useEffect(() => {
     const loadArtist = async () => {
@@ -43,9 +45,10 @@ function App() {
 
   const handleDragEnd = (e) => {
     const {active, over} = e;
-    console.log(active)
-    console.log(over)
-
+    setDropGrid(prev => ({
+      ...prev,
+      [over.id]: "test"
+  }));
   }
 
   return (
