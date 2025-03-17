@@ -12,6 +12,7 @@ function WidgetBox({ guts, id }) {
         <button ref={setNodeRef} style={style} {...listeners} {...attributes}>
             <Box>
                 {guts}
+                <h1>test</h1>
             </Box>
         </button>
     )
